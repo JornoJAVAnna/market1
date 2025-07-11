@@ -27,16 +27,16 @@ public class Product {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "price")
-    private BigDecimal price;
+    @Column(name = "price", nullable = false)
+    private double price;
 
-    @Column(name = "stockQuantity")
-    private int stockQuantity;
+    @Column(name = "stock_quantity")
+    private Integer stock_quantity;
 
-    public Product(String title, String description, BigDecimal price, int stockQuantity) {
+    public Product(String title, String description, double price, int stock_quantity) {
         this.title = title;
         this.description = description;
         this.price = price;
-        this.stockQuantity = stockQuantity;
+        this.stock_quantity = stock_quantity;
     }
 }

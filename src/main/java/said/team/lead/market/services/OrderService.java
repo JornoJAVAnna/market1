@@ -17,6 +17,7 @@ import java.util.Optional;
 @Service
 public class OrderService {
 
+    
     private final OrderItemRepository orderItemRepository;
     private final OrdersRepository ordersRepository;
 
@@ -34,19 +35,10 @@ public class OrderService {
         return ordersRepository.findById(id);
     }
 
-    public Order createOrder(Order order) {
+    public void createOrder(Order order) {
         order.setCreatedAt(LocalDateTime.now());
-        double total = 0;
-        for (OrderItem item : order.getOrderItems()) {
-            item.setOrder(order);
-            total += item.getProduct().getPrice().doubleValue() * item.getQuantity();
-        }
-        order.setTotalPrice(BigDecimal.valueOf(total));
-
-        Order savedOrder = ordersRepository.save(order);
-        orderItemRepository.saveAll(order.getOrderItems());
-
-        return savedOrder;
+        order.calculateTotalPrice();
+        ordersRepository.save(order);
     }
 
     public void updateOrder(int id, Order updatedOrder) {

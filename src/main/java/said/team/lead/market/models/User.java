@@ -1,5 +1,6 @@
 package said.team.lead.market.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,6 +20,7 @@ public class User {
     private int id;
 
     @OneToMany(mappedBy = "owner")
+    @JsonManagedReference
     private List<Order> orders;
 
     @Column(name = "username")
